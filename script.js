@@ -55,3 +55,21 @@ function updateTotal() {
     totalExpense.textContent = total.toFixed(2); // Exibe o total formatado
 }
 
+// Remove uma despesa do array e atualiza a lista e o total
+function removeExpense(index) {
+    expenses.splice(index, 1); // Remove a despesa pelo índice
+    updateExpenseList(); // Atualiza a lista de despesas
+    updateTotal(); // Atualiza o total
+}
+
+// Permite editar uma despesa existente
+function editExpense(index) {
+    const expense = expenses[index]; // Obtém a despesa pelo índice
+
+    // Preenche os campos do formulário com os valores da despesa
+    document.getElementById('nome-gasto').value = expense.name;
+    document.getElementById('valor-gasto').value = expense.value;
+
+    // Remove a despesa para que possa ser atualizada ao salvar
+    removeExpense(index);
+}
