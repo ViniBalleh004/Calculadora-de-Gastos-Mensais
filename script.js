@@ -47,3 +47,11 @@ function updateExpenseList() {
         expenseList.appendChild(row); // Adiciona a linha à tabela
     });
 }
+
+// Calcula e atualiza o valor total das despesas
+function updateTotal() {
+    // Soma os valores de todas as despesas no array
+    const total = expenses.reduce((sum, expense) => sum + expense.value, 0);
+    totalExpense.textContent = total.toFixed(2); // Exibe o total formatado
+}
+
