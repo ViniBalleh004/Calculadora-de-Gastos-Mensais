@@ -5,3 +5,45 @@ const totalExpense = document.getElementById('total-gastos');
 
 // Array para armazenar as despesas
 let expenses = [];
+
+// Adiciona um evento ao formulário para capturar o envio
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Evita o comportamento padrão de recarregar a página
+
+    // Obtém os valores dos campos de nome e valor da despesa
+    const name = document.getElementById('nome-gasto').value;
+    const value = parseFloat(document.getElementById('valor-gasto').value);
+
+    // Verifica se os campos foram preenchidos corretamente
+    if (name && value) {
+        // Cria um objeto de despesa e adiciona ao array
+        const expense = { name, value };
+        expenses.push(expense);
+
+        // Atualiza a lista de despesas e o total
+        updateExpenseList();
+        updateTotal();
+
+        // Reseta o formulário para limpar os campos
+        form.reset();
+    }
+});
+
+// Atualiza a lista de despesas exibida na tabela
+function updateExpenseList() {
+    expenseList.innerHTML = ''; // Limpa a lista atual
+
+    // Itera sobre o array de despesas e cria uma linha para cada despesa
+    expenses.forEach((expense, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${expense.name}</td>
+            <td style="color: ${expense.value > 100 ? 'red' : 'black'};">${expense.value.toFixed(2)}</td>
+            <td>
+                <button onclick="editExpense(${index})">Editar</button>
+                <button onclick="removeExpense(${index})">Remover</button>
+            </td>
+        `;
+        expenseList.appendChild(row); // Adiciona a linha à tabela
+    });
+}
